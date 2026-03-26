@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>موقع شحن</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#f0f6ff;
+}
+
+/* Navbar */
+.navbar{
+background:#0a3d91;
+color:white;
+padding:15px;
+display:flex;
+justify-content:space-between;
+}
+
+.navbar a{
+color:white;
+margin:10px;
+text-decoration:none;
+cursor:pointer;
+}
+
+/* Hero */
+.hero{
+height:300px;
+background:#1e6cff;
+color:white;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+/* Buttons */
+.btn{
+background:#0052cc;
+color:white;
+padding:12px 25px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+margin:10px;
+}
+
+.btn:hover{
+background:#003d99;
+}
+
+/* Sections */
+.section{
+padding:40px;
+text-align:center;
+}
+
+/* Cards */
+.cards{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.card{
+background:white;
+padding:20px;
+width:180px;
+border-radius:10px;
+box-shadow:0 0 10px #ccc;
+}
+
+/* Footer */
+.footer{
+background:#0a3d91;
+color:white;
+text-align:center;
+padding:20px;
+}
+
+/* Hide sections */
+.page{
+display:none;
+}
+
+.active{
+display:block;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+<div>💳 شحن</div>
+
+<div>
+<a onclick="showPage('home')">الرئيسية</a>
+<a onclick="showPage('services')">الخدمات</a>
+<a onclick="showPage('contact')">تواصل</a>
+</div>
+</div>
+
+<!-- Home -->
+<div id="home" class="page active">
+
+<div class="hero">
+<h1>منصة شحن</h1>
+<p>اشحن رصيدك بسهولة</p>
+<button class="btn" onclick="showPage('services')">ابدأ الآن</button>
+</div>
+
+</div>
+
+<!-- Services -->
+<div id="services" class="page">
+
+<div class="section">
+<h2>الخدمات</h2>
+
+<div class="cards">
+<div class="card">
+<h3>شحن رصيد</h3>
+<button class="btn" onclick="alert('تم اختيار شحن رصيد')">اختيار</button>
+</div>
+
+<div class="card">
+<h3>تحويل رصيد</h3>
+<button class="btn" onclick="alert('تم اختيار تحويل')">اختيار</button>
+</div>
+
+<div class="card">
+<h3>دفع فواتير</h3>
+<button class="btn" onclick="alert('تم اختيار دفع')">اختيار</button>
+</div>
+</div>
+
+</div>
+
+</div>
+
+<!-- Contact -->
+<div id="contact" class="page">
+
+<div class="section">
+<h2>تواصل معنا</h2>
+<p>راسلنا لأي استفسار</p>
+
+<button class="btn" onclick="alert('تم إرسال الطلب')">إرسال</button>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+جميع الحقوق محفوظة 2026
+</div>
+
+<script>
+
+/* تغيير الصفحات */
+function showPage(pageId){
+
+let pages = document.querySelectorAll('.page');
+
+pages.forEach(function(p){
+p.classList.remove('active');
+});
+
+document.getElementById(pageId).classList.add('active');
+
+}
+
+</script>
+
+</body>
+</html>
