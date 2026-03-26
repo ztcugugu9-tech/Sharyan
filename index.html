@@ -4,183 +4,200 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>موقع شحن</title>
+<title>Menu Pro</title>
 
 <style>
 
 body{
 margin:0;
 font-family:Arial;
-background:#f0f6ff;
+background:#0b0f2c;
+color:white;
 }
 
-/* Navbar */
-.navbar{
-background:#0a3d91;
-color:white;
+/* زر القائمة */
+.menu-btn{
+font-size:30px;
 padding:15px;
-display:flex;
-justify-content:space-between;
-}
-
-.navbar a{
-color:white;
-margin:10px;
-text-decoration:none;
 cursor:pointer;
 }
 
-/* Hero */
-.hero{
-height:300px;
-background:#1e6cff;
-color:white;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-}
-
-/* Buttons */
-.btn{
-background:#0052cc;
-color:white;
-padding:12px 25px;
-border:none;
-border-radius:8px;
-cursor:pointer;
-margin:10px;
-}
-
-.btn:hover{
-background:#003d99;
-}
-
-/* Sections */
-.section{
-padding:40px;
-text-align:center;
-}
-
-/* Cards */
-.cards{
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-}
-
-.card{
-background:white;
-padding:20px;
-width:180px;
-border-radius:10px;
-box-shadow:0 0 10px #ccc;
-}
-
-/* Footer */
-.footer{
-background:#0a3d91;
-color:white;
-text-align:center;
-padding:20px;
-}
-
-/* Hide sections */
-.page{
+/* الخلفية */
+.overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
 display:none;
 }
 
-.active{
+.overlay.active{
 display:block;
 }
 
-</style>
+/* القائمة */
+.sidebar{
+position:fixed;
+top:0;
+right:-300px;
+width:300px;
+height:100%;
+background:#0f172a;
+transition:0.3s;
+overflow:auto;
+}
 
+.sidebar.active{
+right:0;
+}
+
+/* الهيدر */
+.profile{
+text-align:center;
+padding:20px;
+border-bottom:1px solid #1e293b;
+}
+
+.profile img{
+width:80px;
+height:80px;
+border-radius:50%;
+}
+
+.name{
+margin-top:10px;
+font-size:18px;
+}
+
+.balance{
+color:#38bdf8;
+font-size:20px;
+margin-top:5px;
+}
+
+/* القائمة */
+.menu a{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px;
+text-decoration:none;
+color:white;
+border-bottom:1px solid #1e293b;
+}
+
+.menu a:hover{
+background:#1e40af;
+}
+
+/* أيقونات */
+.icon{
+font-size:18px;
+}
+
+/* زر الوضع */
+.toggle{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px;
+}
+
+.switch{
+width:40px;
+height:20px;
+background:#555;
+border-radius:20px;
+position:relative;
+cursor:pointer;
+}
+
+.switch::after{
+content:"";
+width:18px;
+height:18px;
+background:white;
+position:absolute;
+top:1px;
+left:1px;
+border-radius:50%;
+transition:0.3s;
+}
+
+.switch.active{
+background:#22c55e;
+}
+
+.switch.active::after{
+left:21px;
+}
+
+</style>
 </head>
 
 <body>
 
-<!-- Navbar -->
-<div class="navbar">
-<div>💳 شحن</div>
+<!-- زر -->
+<div class="menu-btn" onclick="openMenu()">☰</div>
 
-<div>
-<a onclick="showPage('home')">الرئيسية</a>
-<a onclick="showPage('services')">الخدمات</a>
-<a onclick="showPage('contact')">تواصل</a>
-</div>
-</div>
+<div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
-<!-- Home -->
-<div id="home" class="page active">
+<div class="sidebar" id="menu">
 
-<div class="hero">
-<h1>منصة شحن</h1>
-<p>اشحن رصيدك بسهولة</p>
-<button class="btn" onclick="showPage('services')">ابدأ الآن</button>
+<!-- حساب -->
+<div class="profile">
+<img src="https://i.imgur.com/6VBx3io.png">
+<div class="name">ماهر</div>
+<div class="balance">$ 16.513</div>
 </div>
 
-</div>
+<!-- القائمة -->
+<div class="menu">
 
-<!-- Services -->
-<div id="services" class="page">
-
-<div class="section">
-<h2>الخدمات</h2>
-
-<div class="cards">
-<div class="card">
-<h3>شحن رصيد</h3>
-<button class="btn" onclick="alert('تم اختيار شحن رصيد')">اختيار</button>
-</div>
-
-<div class="card">
-<h3>تحويل رصيد</h3>
-<button class="btn" onclick="alert('تم اختيار تحويل')">اختيار</button>
-</div>
-
-<div class="card">
-<h3>دفع فواتير</h3>
-<button class="btn" onclick="alert('تم اختيار دفع')">اختيار</button>
-</div>
-</div>
+<a href="#">الرئيسية <span class="icon">🏠</span></a>
+<a href="#">إضافة رصيد <span class="icon">💰</span></a>
+<a href="#">دفعاتي <span class="icon">💳</span></a>
+<a href="#">محفظتي <span class="icon">👛</span></a>
+<a href="#">طلباتي <span class="icon">🛒</span></a>
+<a href="#">وكلاؤنا <span class="icon">🤝</span></a>
+<a href="#">الحماية <span class="icon">🛡️</span></a>
+<a href="#">تحقق الهوية <span class="icon">✔️</span></a>
+<a href="#">من نحن <span class="icon">ℹ️</span></a>
 
 </div>
 
+<!-- الوضع -->
+<div class="toggle">
+<span>الوضع الداكن</span>
+<div class="switch" onclick="toggleMode(this)"></div>
 </div>
 
-<!-- Contact -->
-<div id="contact" class="page">
-
-<div class="section">
-<h2>تواصل معنا</h2>
-<p>راسلنا لأي استفسار</p>
-
-<button class="btn" onclick="alert('تم إرسال الطلب')">إرسال</button>
-</div>
-
-</div>
-
-<!-- Footer -->
-<div class="footer">
-جميع الحقوق محفوظة 2026
 </div>
 
 <script>
 
-/* تغيير الصفحات */
-function showPage(pageId){
+function openMenu(){
+document.getElementById("menu").classList.add("active");
+document.getElementById("overlay").classList.add("active");
+}
 
-let pages = document.querySelectorAll('.page');
+function closeMenu(){
+document.getElementById("menu").classList.remove("active");
+document.getElementById("overlay").classList.remove("active");
+}
 
-pages.forEach(function(p){
-p.classList.remove('active');
-});
+function toggleMode(el){
+el.classList.toggle("active");
 
-document.getElementById(pageId).classList.add('active');
-
+if(document.body.style.background == "white"){
+document.body.style.background = "#0b0f2c";
+document.body.style.color = "white";
+}else{
+document.body.style.background = "white";
+document.body.style.color = "black";
+}
 }
 
 </script>
