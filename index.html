@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sharyan</title>
+<title>متجر</title>
 
 <style>
 body{
 margin:0;
 font-family:Arial;
-background:#050816;
+background:#020617;
 color:white;
 }
 
@@ -19,37 +19,16 @@ background:linear-gradient(to right,#1e3a8a,#16a34a);
 padding:10px;
 display:flex;
 justify-content:space-between;
-align-items:center;
 }
 
-.header .left{
-display:flex;
-align-items:center;
-gap:10px;
-}
-
-.icon{
-font-size:20px;
-cursor:pointer;
-}
-
-/* SEARCH */
-.search{
-padding:10px;
-}
-.search input{
-width:100%;
-padding:12px;
-border-radius:25px;
-border:none;
-background:#0f172a;
-color:white;
+.balance{
+font-weight:bold;
 }
 
 /* GRID */
 .grid{
 display:grid;
-grid-template-columns:repeat(3,1fr);
+grid-template-columns:repeat(2,1fr);
 gap:10px;
 padding:10px;
 }
@@ -63,26 +42,26 @@ text-align:center;
 
 .card img{
 width:70px;
-border-radius:50%;
+border-radius:10px;
 }
 
-/* BOTTOM */
-.bottom{
-position:fixed;
-bottom:0;
-width:100%;
-background:#020617;
-display:flex;
-justify-content:space-around;
-padding:10px;
+button{
+margin:5px;
+padding:8px;
+border:none;
+border-radius:8px;
+cursor:pointer;
 }
+
+.buy{background:#16a34a;}
+.sell{background:#dc2626;}
 
 /* SIDEBAR */
 .sidebar{
 position:fixed;
-right:-300px;
+right:-260px;
 top:0;
-width:300px;
+width:260px;
 height:100%;
 background:#020617;
 transition:0.3s;
@@ -94,8 +73,8 @@ transition:0.3s;
 display:block;
 padding:15px;
 border-bottom:1px solid #111;
-text-decoration:none;
 color:white;
+text-decoration:none;
 }
 
 .overlay{
@@ -114,75 +93,85 @@ display:none;
 
 <!-- HEADER -->
 <div class="header">
-<div class="left">
-<div class="icon">⬅️</div>
-<div>💰 16.513$</div>
-</div>
-
-<div class="right">
-<span class="icon">🌐</span>
-<span class="icon" onclick="openMenu()">☰</span>
-</div>
-</div>
-
-<!-- SEARCH -->
-<div class="search">
-<input placeholder="بحث">
+<div class="balance">💰 <span id="balance">100</span>$</div>
+<div onclick="openMenu()">☰</div>
 </div>
 
 <!-- GRID -->
-<div class="grid">
-
-<script>
-let apps=[
-"Likee","VIP","Ahlan","Yoho","Soul","Party",
-"Yudo","Tomohi","Oohla","Hapi","Chat","App"
-];
-
-apps.forEach(a=>{
-document.write(`
-<div class="card">
-<img src="https://cdn-icons-png.flaticon.com/512/732/732200.png">
-<p>${a}</p>
-</div>
-`);
-});
-</script>
-
-</div>
+<div class="grid" id="grid"></div>
 
 <!-- SIDEBAR -->
 <div class="overlay" id="overlay" onclick="closeMenu()"></div>
 
 <div class="sidebar" id="menu">
-<div style="padding:20px">
-<h3>ماهر</h3>
-<p>$16.513</p>
-</div>
-
+<h3 style="padding:15px">ماهر</h3>
 <div class="menu">
 <a href="#">الرئيسية</a>
-<a href="#">إضافة رصيد</a>
-<a href="#">دفعاتي</a>
 <a href="#">محفظتي</a>
 <a href="#">طلباتي</a>
-<a href="#">وكلاؤنا</a>
-<a href="#">الحماية</a>
-<a href="#">تحقق الهوية</a>
-<a href="#">من نحن</a>
+<a href="#">الإعدادات</a>
 </div>
-
-</div>
-
-<!-- BOTTOM -->
-<div class="bottom">
-<div>🏠</div>
-<div>🔍</div>
-<div>🛒</div>
-<div>👤</div>
 </div>
 
 <script>
+
+let balance = 100;
+
+// منتجات
+let products = [
+{name:"منتج 1", price:10},
+{name:"منتج 2", price:15},
+{name:"منتج 3", price:20},
+{name:"منتج 4", price:25},
+{name:"منتج 5", price:30},
+{name:"منتج 6", price:35},
+{name:"منتج 7", price:40},
+{name:"منتج 8", price:45},
+{name:"منتج 9", price:50},
+{name:"منتج 10", price:60},
+];
+
+let grid = document.getElementById("grid");
+
+// عرض المنتجات
+products.forEach((p,i)=>{
+grid.innerHTML += `
+<div class="card">
+<img src="https://cdn-icons-png.flaticon.com/512/732/732200.png">
+<h3>${p.name}</h3>
+<p>${p.price}$</p>
+
+<button class="buy" onclick="buy(${i})">شراء</button>
+<button class="sell" onclick="sell(${i})">بيع</button>
+
+</div>
+`;
+});
+
+// شراء
+function buy(i){
+if(balance >= products[i].price){
+balance -= products[i].price;
+update();
+alert("تم الشراء");
+}else{
+alert("رصيدك غير كافي");
+}
+}
+
+// بيع
+function sell(i){
+balance += products[i].price;
+update();
+alert("تم البيع");
+}
+
+// تحديث الرصيد
+function update(){
+document.getElementById("balance").innerText = balance;
+}
+
+// القائمة
 function openMenu(){
 menu.classList.add("active");
 overlay.classList.add("active");
@@ -192,7 +181,8 @@ function closeMenu(){
 menu.classList.remove("active");
 overlay.classList.remove("active");
 }
+
 </script>
-<H1>الرأيسئه</H1>
+
 </body>
 </html>
